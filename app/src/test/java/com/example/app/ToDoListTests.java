@@ -2,7 +2,8 @@ package com.example.app;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
-
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -91,9 +92,9 @@ public class ToDoListTests {
 				.name("Item 11")
 				.content("11 content")
 				.build();
-		this.toDoListMock = mock(ToDoList.class);
-		doNothing().when(toDoListMock).save();
 		this.toDoList = new ToDoList(user);
+		this.toDoListMock = spy(toDoList);
+		doNothing().when(toDoListMock).save();
 		this.toDoList.add(item1);
 
 		this.itemNameTaken = Item.builder()
@@ -115,29 +116,29 @@ public class ToDoListTests {
 
 	@Test
 	public void excede10Items() {
-		toDoList.add(item2);
-		toDoList.add(item3);
-		toDoList.add(item4);
-		toDoList.add(item5);
-		toDoList.add(item6);
-		toDoList.add(item7);
-		toDoList.add(item8);
-		toDoList.add(item9);
-		toDoList.add(item10);
-		assertThrows(ArithmeticException.class, () -> toDoList.add(item11));
+		toDoListMock.add(item2);
+		toDoListMock.add(item3);
+		toDoListMock.add(item4);
+		toDoListMock.add(item5);
+		toDoListMock.add(item6);
+		toDoListMock.add(item7);
+		toDoListMock.add(item8);
+		toDoListMock.add(item9);
+		toDoListMock.add(item10);
+		assertThrows(ArithmeticException.class, () -> toDoListMock.add(item11));
 	}
 
 	@Test
 	public void add2ItemsNominalTest() {
-		this.toDoList.add(item1);
+		this.toDoListMock.add(item1);
 		this.item1.setAddDate(LocalDateTime.now().minusMinutes(30));
-		assertDoesNotThrow(() -> doNothing().when(toDoListMock).add(item2));
+		assertDoesNotThrow(() -> toDoListMock.add(item2));
 	}
 
 	@Test
 	public void addTooQuickly() {
 		this.item1.setAddDate(LocalDateTime.now());
-		assertThrows(ArithmeticException.class, () -> toDoList.add(item2));
+		assertThrows(ArithmeticException.class, () -> toDoListMock.add(item2));
 	}
 
 }
