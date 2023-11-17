@@ -4,26 +4,23 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDate;
-import java.time.Period;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Getter
 @Setter
 @Builder
-
 public class Item {
+
     private String name;
     private String content;
-    final LocalDate addDate;
+    LocalDateTime addDate;
 
-    public boolean contentIsValid(Item item){
-        if(item.getContent().length()>1000){
+    public boolean contentIsValid() {
+        if (this.content.length() > 1000) {
             return false;
         }
         return true;
     }
-    
 
-    
 }

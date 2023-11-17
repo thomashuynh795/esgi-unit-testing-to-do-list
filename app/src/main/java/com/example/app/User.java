@@ -14,68 +14,68 @@ import java.util.regex.Pattern;
 @Builder
 public class User {
 
-  private String email;
-  private String firstname;
-  private String lastname;
-  private LocalDate birthdate;
-  private String password;
+    private String email;
+    private String firstname;
+    private String lastname;
+    private LocalDate birthdate;
+    private String password;
 
-  public boolean isEmailValid() {
-    return email != null && Pattern.compile("^[^@]+@[^@]+\\.[^@]+$").matcher(this.email).matches();
-  }
-
-  public boolean isPasswordValid() {
-    if (this.password == null || this.password.length() < 8 || 40 < this.password.length())
-      return false;
-
-    Boolean hasUpperCase = false;
-    Boolean hasLowerCase = false;
-    Boolean hasDigit = false;
-
-    char[] passwordAsCharArray = this.password.toCharArray();
-
-    for (int i = 0; i < passwordAsCharArray.length; i++) {
-      if (Character.isUpperCase(passwordAsCharArray[i]))
-        hasUpperCase = true;
-      if (Character.isLowerCase(passwordAsCharArray[i]))
-        hasLowerCase = true;
-      if (Character.isDigit(passwordAsCharArray[i]))
-        hasDigit = true;
+    public boolean isEmailValid() {
+        return email != null && Pattern.compile("^[^@]+@[^@]+\\.[^@]+$").matcher(this.email).matches();
     }
 
-    return hasUpperCase && hasLowerCase && hasDigit;
+    public boolean isPasswordValid() {
+        if (this.password == null || this.password.length() < 8 || 40 < this.password.length())
+            return false;
 
-  }
+        Boolean hasUpperCase = false;
+        Boolean hasLowerCase = false;
+        Boolean hasDigit = false;
 
-  public boolean isThirteenYearsOld() {
-    return 13 <= Period.between(this.birthdate, LocalDate.now()).getYears();
-  }
+        char[] passwordAsCharArray = this.password.toCharArray();
 
-  public boolean isFirstnameValid() {
-    return this.firstname != null && !this.firstname.trim().isEmpty();
-  }
+        for (int i = 0; i < passwordAsCharArray.length; i++) {
+            if (Character.isUpperCase(passwordAsCharArray[i]))
+                hasUpperCase = true;
+            if (Character.isLowerCase(passwordAsCharArray[i]))
+                hasLowerCase = true;
+            if (Character.isDigit(passwordAsCharArray[i]))
+                hasDigit = true;
+        }
 
-  public boolean isLastNameValid() {
-    return this.lastname != null && !this.lastname.trim().isEmpty();
-  }
+        return hasUpperCase && hasLowerCase && hasDigit;
 
-  public boolean isBirthdateValid() {
-    if (this.birthdate == null) {
-      return false;
     }
-    return birthdate.isBefore(LocalDate.now());
-  }
 
-  public boolean isValid() {
-    return isEmailValid()
-        && isFirstnameValid()
-        && isLastNameValid()
-        && isBirthdateValid()
-        && isPasswordValid()
-        && isThirteenYearsOld();
-  }
+    public boolean isThirteenYearsOld() {
+        return 13 <= Period.between(this.birthdate, LocalDate.now()).getYears();
+    }
 
-  public boolean isValidWithExternalApi() {
-    return this.isEmailValid() && isFirstnameValid() && isLastNameValid() && isBirthdateValid();
-  }
+    public boolean isFirstnameValid() {
+        return this.firstname != null && !this.firstname.trim().isEmpty();
+    }
+
+    public boolean isLastNameValid() {
+        return this.lastname != null && !this.lastname.trim().isEmpty();
+    }
+
+    public boolean isBirthdateValid() {
+        if (this.birthdate == null) {
+            return false;
+        }
+        return birthdate.isBefore(LocalDate.now());
+    }
+
+    public boolean isValid() {
+        return isEmailValid()
+                && isFirstnameValid()
+                && isLastNameValid()
+                && isBirthdateValid()
+                && isPasswordValid()
+                && isThirteenYearsOld();
+    }
+
+    public boolean isValidWithExternalApi() {
+        return this.isEmailValid() && isFirstnameValid() && isLastNameValid() && isBirthdateValid();
+    }
 }
