@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.example.app.model.User;
+
 public class UserTests {
 
 	private User user;

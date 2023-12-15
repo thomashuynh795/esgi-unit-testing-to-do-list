@@ -1,5 +1,7 @@
 package com.example.app;
 
+import com.example.app.model.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
