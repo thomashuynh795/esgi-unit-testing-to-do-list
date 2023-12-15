@@ -1,17 +1,12 @@
 package com.example.app.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-
+import lombok.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-
 @Table(name = "Item")
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -21,17 +16,19 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     private String name;
+
     private String content;
+
+    @Column(nullable = false)
     private LocalDateTime createdAt;
-    @JoinColumn(name = "toDoListId")
+
+    @ManyToOne
+    @JoinColumn(name = "toDoListId", nullable = false)
     private ToDoList toDoList;
 
-    // public boolean contentIsValid() {
-    // if (this.content.length() > 1000) {
-    // return false;
-    // }
-    // return true;
-    // }
+    @Column(nullable = false)
+    private LocalDateTime creationDate = LocalDateTime.now();
 
 }

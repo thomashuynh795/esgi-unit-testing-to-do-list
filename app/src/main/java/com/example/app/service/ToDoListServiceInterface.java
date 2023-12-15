@@ -6,7 +6,7 @@ import com.example.app.model.ToDoList;
 
 public interface ToDoListServiceInterface {
 
-    ToDoList createToDoList(ToDoList toDoList);
+    ToDoList createToDoList(UUID id, ToDoList toDoList) throws Exception;
     ToDoList getToDoListByUserId(UUID id);
     
 }
